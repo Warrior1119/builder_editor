@@ -1,0 +1,90 @@
+<div class="group">
+  <div #backgroundLabel class="group__row">
+    <peb-editor-triangle-right-icon
+      class="group__triangle-icon"
+      [pebEditorAccordion]="backgroundWrapper"
+      pebEditorAccordionKey="backgroundWrapper"
+      [triggerContainer]="backgroundLabel">
+    </peb-editor-triangle-right-icon>
+    <div class="group__col">
+      <div class="background">
+        <div class="background__header">
+          <span>{{ label }}</span>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="backgroundControl"
+      class="group__col">
+      <div class="background background--right">
+        <peb-editor-color-picker
+          #bgColorInput
+          [control]="backgroundControl"
+          [simple]="true"
+          (changeBlur)="changeBlur.emit()"
+        ></peb-editor-color-picker>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div #backgroundWrapper>
+  <div class="form-select">
+    <peb-editor-sidebar-select
+      #fillTypeSelect
+      [options]="selectOptions"
+      [disabled]="fillTypeControl.disabled"
+      [control]="fillTypeControl"
+      (blurOn)="changeBlur.emit()"
+    ></peb-editor-sidebar-select>
+  </div>
+
+  <div [ngSwitch]="getFillType()" class="background">
+    <div class="background__color-picker"
+         *ngSwitchCase="fillType.ColorFill">
+      <editor-color-picker-spectrum-palette-input
+        cpPosition="top"
+        [formControl]="backgroundControl"
+        (changeBlur)="changeBlur.emit()"
+      ></editor-color-picker-spectrum-palette-input>
+    </div>
+
+    <div class="background_gradient" *ngSwitchCase="fillType.GradientFill">
+      <div class="group">
+        <div class="group__row">
+          <div class="group__col">
+            <peb-editor-switch-arrow-icon class="gradient-switch-arrow"></peb-editor-switch-arrow-icon>
+            <div class="background">
+              <div class="background__colors">
+                <editor-color-picker-spectrum-palette-input
+                  [formControl]="gradientStart"
+                  (changeBlur)="changeBlur.emit()"
+                ></editor-color-picker-spectrum-palette-input>
+              </div>
+              <div class="background__colors">
+                <editor-color-picker-spectrum-palette-input
+                  [formControl]="gradientStop"
+                  (changeBlur)="changeBlur.emit()"
+                ></editor-color-picker-spectrum-palette-input>
+              </div>
+            </div>
+          </div>
+          <div class="group__col group__col--gradient">
+            <div class="background background--flex">
+              <div class="background__angle">
+                <peb-editor-sidebar-angle-picker
+                  [control]="gradientAngle"></peb-editor-sidebar-angle-picker>
+              </div>
+              <peb-editor-number-input-old
+                [control]="gradientAngle"
+                [label]="'Angle'"
+                [unit]="'&#176;'"
+                (changeBlur)="changeBlur.emit()"
+              ></peb-editor-number-input-old>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="dashboard-header">
+  <div class="dashboard-header__title">
+    {{ yourTerminalTitle }}
+  </div>
+  <button class="dashboard-header__open" (click)="onOpenClick()">
+    {{ locale === 'de' ? 'Öffnen' : locale === 'sv' ? 'Öppna' : 'Open' }}
+  </button>
+  <button class="dashboard-header__menu" [matMenuTriggerFor]="itemMenu">
+    <svg>
+      <use [attr.xlink:href]="'#icon-dots-h-24'"></use>
+    </svg>
+  </button>
+
+  <mat-menu #itemMenu="matMenu" class="shop-menu">
+    <button mat-menu-item (click)="onEditClick()">
+      {{
+        locale === 'de' ? 'Bearbeiten' : locale === 'sv' ? 'Redigera' : 'Edit'
+      }}
+    </button>
+  </mat-menu>
+</div>
+<div class="dashboard-viewer-container">
+  <mat-spinner
+    *ngIf="!(preview$ | async)"
+    class="mat-spinner-themed dashboard-spinner"
+    [strokeWidth]="2"
+    [diameter]="22"
+  ></mat-spinner>
+
+  <ng-scrollbar
+    *ngIf="(preview$ | async)?.published"
+    visibility="always"
+    class="viewer-scrollbar"
+  >
+    <router-outlet></router-outlet>
+  </ng-scrollbar>
+</div>

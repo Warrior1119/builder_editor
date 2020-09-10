@@ -1,0 +1,23 @@
+{
+  "name": "@pe/builder-pos",
+  "version": "4.6.13",
+  "description": "Builder: pos",
+  "repository": "https://gitlab.devpayever.com/frontend/builder-editor",
+  "license": "UNLICENSED",
+  "peerDependencies": {
+    "@angular/common": "^9.1.4",
+    "@angular/core": "^9.1.4",
+    "tslib": "^1.10.0",
+    "@angular/material": "latest",
+    "@angular/cdk": "latest",
+    "@pe/builder-pos-client": "0.0.2",
+    "moment": "latest",
+    "lodash-es": "latest",
+    "ngx-webstorage": "latest",
+    "@auth0/angular-jwt": "latest",
+    "ngx-color-picker": "latest",
+    "angular2-text-mask": "latest",
+    "iban": "latest",
+    "text-mask-addons": "^3.8.0"
+  }
+}

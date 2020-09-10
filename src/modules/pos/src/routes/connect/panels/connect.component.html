@@ -1,0 +1,31 @@
+<ng-container *ngIf="onlyContent" [ngTemplateOutlet]="body"></ng-container>
+
+<div class="pe-info-box-container-fixed" *ngIf="!onlyContent">
+  <pe-info-box
+    class="pe-info-box-header-padding"
+    [fixed]="false"
+    [transparent]="true"
+    [withHeader]="false"
+    [withFooter]="false"
+    [withPadding]="false"
+    [notFullwidthOnMobile]="true"
+    [roundBorder]="true">
+    <ng-container content>
+      <ng-container [ngTemplateOutlet]="body"></ng-container>
+    </ng-container>
+  </pe-info-box>
+</div>
+
+<ng-template #body>
+  <pos-expansion-menu-list [integrations]="connects$ | async"
+                                [enabledIntegrations]="$enabledIntegrations | async"
+                                [category]="categories.Communications"
+                                [isShowToggleButton]="true"
+                                [isShowAddButton]="connectsReady"
+                                [noPaddingLeft]="onlyContent"
+                                [sizeMd]="!onlyContent"
+                                (clickedToggleButton)="onToggleIntegration($event)"
+                                (clickedIntegrationButton)="clickedIntegrationOpenButton($event)"
+                                (clickedAddButton)="clickedIntegrationAddButton($event)">
+  </pos-expansion-menu-list>
+</ng-template>

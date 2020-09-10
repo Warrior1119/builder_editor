@@ -1,0 +1,69 @@
+<div *ngIf="formGroup">
+  <form [formGroup]="formGroup" class="form">
+    <div class="group background">
+      <peb-editor-background-fill
+        [label]="'Background'"
+        [backgroundControl]="formGroup.get('bgColor')"
+        [fillTypeControl]="formGroup.get('fillType')"
+        [selectOptions]="FillTypes"
+        [gradientStop]="formGroup.get('bgColorGradientStop')"
+        [gradientStart]="formGroup.get('bgColorGradientStart')"
+        [gradientAngle]="formGroup.get('bgColorGradientAngle')"
+        (changeBlur)="blurred.emit()"
+      >
+      </peb-editor-background-fill>
+
+      <div class="background" *ngIf="formGroup.get('fillType').value.name === FillType.ImageFill">
+        <div class="background__options">
+          <div class="background__img-container">
+            <div class="spinner" *ngIf="bgImageLoading"></div>
+
+            <div class="background__thumbnail" *ngIf="formGroup.get('bgImage').value"
+                 [style.background-image]="'url(' + formGroup.get('bgImage').value + ')'"></div>
+
+            <input type="file" accept="image/jpeg,image/png,image/gif" #bgImageInput hidden
+                   (change)="changeBgInputHandler($event)">
+          </div>
+
+          <div class="background__actions">
+            <peb-editor-sidebar-select
+              [options]="ImageSizes"
+              [disabled]="formGroup.get('imageSize').disabled"
+              [control]="formGroup.get('imageSize')"></peb-editor-sidebar-select>
+
+            <button class="button background__choose-image-btn" (click)="openMediaStudio()">From Studio</button>
+
+            <button class="button background__choose-image-btn" (click)="bgImageInput.click()">Choose</button>
+          </div>
+        </div>
+
+        <div>
+          <div>
+            <label
+              #scaleLabel
+              class="group__label">
+              <peb-editor-triangle-right-icon
+                class="group__triangle-icon"
+                [pebEditorAccordion]="scaleWrapper"
+                pebEditorAccordionKey="scaleWrapper"
+                [triggerContainer]="scaleLabel"
+              ></peb-editor-triangle-right-icon>
+              <span>Scale</span>
+            </label>
+          </div>
+
+          <div
+            #scaleWrapper
+            class="group__label">
+            <peb-editor-sidebar-slider
+              min="0"
+              max="200"
+              [unit]="SliderUnit"
+              [control]="formGroup.get('imageScale')">
+            </peb-editor-sidebar-slider>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,69 @@
+<div
+  class="terminals-container"
+  *ngIf="{
+    defaultTerminal: defaultTerminalSubject | async
+  } as data"
+>
+  <div class="active-terminal terminal" [class.terminal--skeleton]="!terminals?.length">
+    <div class="terminal__logo" *ngIf="{ src: data.defaultTerminal?.logo } as logo">
+      <img *ngIf="logo.src" class="terminal__logo-img" [src]="logo.src" />
+      <div
+        *ngIf="terminals && data.defaultTerminal && !logo.src"
+        class="terminal__logo-placeholder"
+      >
+        <h2>{{ data.defaultTerminal.name | abbreviation }}</h2>
+      </div>
+    </div>
+    <div class="terminal__controls terminal__add-button-wrapper">
+      <button class="control terminal__add-button" routerLink="../create">+ {{ addTerminalTitle }}</button>
+    </div>
+  </div>
+
+  <div class="terminals-title" [class.terminals-title--skeleton]="!terminals?.length">
+    {{ onlineTerminalsTitle }}
+  </div>
+  <ng-container *ngIf="terminals?.length; else skeleton">
+    <div class="terminals">
+      <div
+        class="terminal"
+        *ngFor="let terminal of terminals"
+        [class.terminal--active]="
+          data.defaultTerminal && data.defaultTerminal._id === terminal._id
+        "
+        (click)="onSetAsDefault(terminal)"
+      >
+        <div class="terminal__logo">
+          <img
+            *ngIf="terminal?.logo"
+            class="terminal__logo-img"
+            [src]="terminal?.logo"
+          />
+          <div *ngIf="!terminal?.logo" class="terminal__logo-placeholder">
+            <h2>{{ terminal.name | abbreviation }}</h2>
+          </div>
+        </div>
+        <div class="terminal__name">{{ terminal.name }}</div>
+        <div *ngIf="data.defaultTerminal && data.defaultTerminal._id === terminal._id" class="terminal__controls">
+          <button class="control" (click)="onOpen(terminal)">{{ openTitle }}</button>
+          <button class="control control--transparent" [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+            <peb-pos-control-dots-icon></peb-pos-control-dots-icon>
+          </button>
+          <mat-menu #menu="matMenu" class="terminal-menu">
+            <button mat-menu-item (click)="onSetAsDefault(terminal)">{{ setAsDefaultTitle }}</button>
+            <button mat-menu-item (click)="onEdit(terminal._id)">{{ editTitle }}</button>
+            <button mat-menu-item (click)="onDelete(terminal._id)">{{ deleteTitle }}</button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #skeleton>
+  <div class="terminals">
+    <div *ngFor="let i of skeletonThemes" class="terminal terminal--skeleton">
+      <div class="terminal__logo"></div>
+      <div class="terminal__name"></div>
+    </div>
+  </div>
+</ng-template>

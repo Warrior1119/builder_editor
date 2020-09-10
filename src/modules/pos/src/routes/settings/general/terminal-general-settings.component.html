@@ -1,0 +1,34 @@
+<div class="panel">
+  <div class="field field--bordered">
+    <peb-pos-payever-logo-icon class="field__icon"></peb-pos-payever-logo-icon>
+    <div class="field__label">{{ domainTitle }}</div>
+    <div class="field__value">
+      {{ posDeploy?.internalDomain }}
+    </div>
+    <button class="field__control" routerLink="local-domain">{{ editTitle }}</button>
+  </div>
+  <div class="field field--bordered">
+    <peb-pos-uuid-icon class="field__icon"></peb-pos-uuid-icon>
+    <div class="field__label">{{ businessUUIDTitle }}</div>
+    <div class="field__value">{{ envService.businessId }}</div>
+    <button
+      class="field__control"
+      [cdkCopyToClipboard]="envService.businessId"
+      (click)="onCopyBusinessId()"
+    >
+      {{ businessButtonText$ | async }}
+    </button>
+  </div>
+  <div class="field field--bordered">
+    <peb-pos-uuid-icon class="field__icon"></peb-pos-uuid-icon>
+    <div class="field__label">Terminal UUID</div>
+    <div class="field__value">{{ envService.terminalId }}</div>
+    <button
+      class="field__control"
+      [cdkCopyToClipboard]="envService.terminalId"
+      (click)="onCopyTerminalId()"
+    >
+      {{ terminalButtonText$ | async }}
+    </button>
+  </div>
+</div>

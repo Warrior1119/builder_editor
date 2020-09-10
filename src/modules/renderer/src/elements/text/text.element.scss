@@ -1,0 +1,32 @@
+:host {
+  display: inline-block;
+  line-height: normal;
+
+  * {
+    font-size: inherit;
+    cursor: default;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  &.interactions {
+    * {
+      pointer-events: all;
+      user-select: auto;
+    }
+  }
+}
+
+.content-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.content {
+  min-width: 100%;
+  min-height: 100%;
+  max-width: 100%;
+  width: max-content;
+  height: max-content;
+}

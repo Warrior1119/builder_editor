@@ -1,0 +1,64 @@
+<ng-container
+  *ngIf="elementDefinition.type !== PebElementType.Section; then regularAnchors; else sectionAnchors"
+></ng-container>
+
+<ng-template #regularAnchors>
+  <svg
+    [style.top.px]="dimensions.top"
+    [style.left.px]="dimensions.left"
+    [style.width.px]="dimensions.width"
+    [style.height.px]="dimensions.height"
+  >
+    <circle
+      class="anchor"
+      *ngFor="let point of points | where:['shown', true]"
+      [class]="getAnchorTypeClass(point.type)"
+      [attr.cx]="point.x"
+      [attr.cy]="point.y"
+      [attr.fill]="color"
+      [attr.anchor-type]="point.type"
+      [attr.anchor-for]="elementId"
+      r="4"
+    />
+  </svg>
+</ng-template>
+
+<ng-template #sectionAnchors>
+  <svg
+    *ngFor="let point of points | where:['shown', true]"
+    class="section-anchor anchor"
+    width="38px"
+    height="20px"
+    viewBox="0 0 38 20"
+    [attr.cx]="point.x"
+    [attr.cy]="point.y"
+    [attr.fill]="color"
+    [attr.anchor-type]="point.type"
+    [attr.anchor-for]="elementId"
+    [style.top.px]="point.y - 10"
+    [style.left.px]="point.x"
+    [ngClass]="[getAnchorTypeClass(point.type)]"
+  >
+    <g stroke="none" stroke-width="1" fill="white" fill-rule="evenodd">
+      <g
+        transform="translate(-627.000000, -570.000000)"
+        stroke-width="2"
+        [attr.stroke]="color"
+      >
+        <g transform="translate(627.000000, 570.000000)">
+          <rect x="1" y="1" width="35.5" height="18" rx="9" />
+          <polyline
+            fill-rule="nonzero"
+            transform="translate(18.750000, 12.857143) scale(-1, 1) translate(-18.750000, -12.857143) "
+            points="22.5 11.4285714 18.75 14.2857143 18.75 14.2857143 15 11.4285714"
+          />
+          <polyline
+            fill-rule="nonzero"
+            transform="translate(18.750000, 7.142857) scale(-1, 1) rotate(-180.000000) translate(-18.750000, -7.142857) "
+            points="22.5 5.71428571 18.75 8.57142857 18.75 8.57142857 15 5.71428571"
+          />
+        </g>
+      </g>
+    </g>
+  </svg>
+</ng-template>

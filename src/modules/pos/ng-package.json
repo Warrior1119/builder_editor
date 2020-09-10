@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../../dist/libs/pos",
+  "lib": {
+    "entryFile": "src/index.ts",
+
+    "umdModuleIds": {
+      "lodash": "lodash",
+      "@angular/material": "@angular/material",
+      "@angular/cdk": "@angular/cdk",
+      "ngx-scrollbar": "ngx-scrollbar",
+      "moment": "moment",
+      "lodash-es": "lodash-es",
+      "flat": "flat",
+      "ngx-webstorage": "ngx-webstorage",
+      "@auth0/angular-jwt": "@auth0/angular-jwt",
+      "ngx-color-picker": "ngx-color-picker",
+      "angular2-text-mask": "angular2-text-mask",
+      "text-mask-addons": "text-mask-addons",
+      "iban": "iban",
+
+      "@pe/builder-viewer": "@pe/builder-viewer",
+      "@pe/builder-core": "@pe/builder-core",
+      "@pe/builder-api": "@pe/builder-api",
+      "@pe/platform-header": "@pe/platform-header",
+      "@pe/forms": "@pe/forms",
+      "@pe/i18n": "@pe/i18n"
+    }
+  }
+}

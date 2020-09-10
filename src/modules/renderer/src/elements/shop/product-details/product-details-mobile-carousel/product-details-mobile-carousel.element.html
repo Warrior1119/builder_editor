@@ -1,0 +1,26 @@
+<div
+  class="carousel"
+  [style.width.px]="(widthSubject$ | async)"
+  [style.height.px]="(heightSubject$ | async)"
+>
+  <div class="carousel-wrapper" [style.width]="carouselWidth" #carouselRef>
+    <div
+      class="carousel-item"
+      *ngFor="let src of imagesStack; let i = index"
+      [style.background-image]="getImage(src)"
+    ></div>
+    <div
+      *ngIf="!imagesStack?.length"
+      class="carousel-item carousel-item-default"
+    >
+      <peb-icon-default-product></peb-icon-default-product>
+    </div>
+  </div>
+
+  <ng-container *ngIf="imagesStack?.length > 1">
+    <div class="carousel-control carousel-control-left" (click)="prev()"><</div>
+    <div class="carousel-control carousel-control-right" (click)="next()">
+      >
+    </div>
+  </ng-container>
+</div>

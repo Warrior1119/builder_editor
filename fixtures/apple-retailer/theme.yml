@@ -1,0 +1,19 @@
+name: Apple retailer
+data:
+  frontPageId: front
+  productPages: my-awesome-products/:productId
+  categoryPages: my-awesome-category/:categoryId
+routing:
+  - routeId: 'apple-main-page-route'
+    url: /
+    pageId: apple-main-page
+  - routeId: 'apple-about-page-route'
+    url: /about
+    pageId: apple-about-page
+context: {}
+pages:
+  - front
+  - product
+  - category
+  - about
+  - category

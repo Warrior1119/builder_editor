@@ -1,0 +1,46 @@
+<div class="panel">
+  <ng-content></ng-content>
+  <ng-container *ngFor="let integration of integrations; index as i">
+    <div class="field field--bordered">
+      <div class="field__icon">
+        <svg>
+          <use
+            [attr.xlink:href]="integration.integration.displayOptions.icon"
+          ></use>
+        </svg>
+      </div>
+      <div class="field__label">
+        {{
+          translationService.translate(
+            integration.integration.displayOptions.title
+          )
+        }}
+      </div>
+      <div class="field__value"></div>
+      <div>
+        <div *ngIf="{ id: 'toggle_' + i } as data" class="toggle">
+          <input
+            type="checkbox"
+            [attr.id]="data.id"
+            *ngIf="isShowToggleButton"
+            [checked]="
+              (enabledIntegrations || []).indexOf(
+                integration.integration.name
+              ) >= 0
+            "
+            (change)="toggleClick(integration)"
+          />
+          <label [attr.for]="data.id"><i></i></label>
+        </div>
+      </div>
+      <button class="field__control" (click)="onOpen(integration)">
+        {{ translationService.translate('actions.open') }}
+      </button>
+    </div>
+  </ng-container>
+  <div class="field field--bordered">
+    <button class="field__add-btn" (click)="clickedAddButton.emit(category)">
+      {{ translationService.translate('actions.addPlus') }}
+    </button>
+  </div>
+</div>
